@@ -1,5 +1,5 @@
 import'package:flutter/material.dart';
-import 'package:flutter_app1/detail_screen.dart';
+import 'package:flutter_app1/mainscreen.dart';
 
 class ScrollingScreen extends StatelessWidget {
   final List listv = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,'button'];
@@ -36,7 +36,7 @@ class ScrollingScreen extends StatelessWidget {
                   splashColor: Colors.blueAccent,
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return DetailScreen();
+                      return MainScreen();
                     }));
                   },
                   child: Text(
