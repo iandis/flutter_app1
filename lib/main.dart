@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app1/detail_screen.dart';
-import 'package:flutter_app1/rainbow.dart';
 
 void main() {
   runApp(MyApp());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app1/rainbow.dart';
 
 var myTextStyle = TextStyle(
   fontFamily: 'Oxygen',
@@ -111,10 +112,12 @@ class DetailScreen extends StatelessWidget {
                   padding: EdgeInsets.all(8.0),
                   splashColor: Colors.blueAccent,
                   onPressed: () {
-                    // Aksi ketika button diklik
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return Rainbow();
+                    }));
                   },
                   child: Text(
-                    'Flat Button',
+                    'Rainbow',
                     style: TextStyle(fontSize: 20.0),
                   ),
                 )
