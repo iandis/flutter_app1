@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 class TourismPlace {
   String name;
   String location;
@@ -7,7 +8,8 @@ class TourismPlace {
   String ticketPrice;
   String imageAsset;
   List<String> imageUrls;
-
+  Image img;
+  Color col;
 
   TourismPlace({
     this.name,
@@ -18,5 +20,7 @@ class TourismPlace {
     this.ticketPrice,
     this.imageAsset,
     this.imageUrls,
+    this.img,
+    this.col,
   });
 }

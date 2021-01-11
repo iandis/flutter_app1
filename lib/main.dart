@@ -10,7 +10,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Wisata Bandung',
-      theme: ThemeData.from(colorScheme: ColorScheme.highContrastDark()),
+      theme: ThemeData(
+              primaryColor: Color(0xff191e3b),
+              backgroundColor: Color(0xff191e3b),
+              brightness: Brightness.dark,
+              errorColor: Color(0xffB00020),
+              accentColor: Color(0xff40C4FF),
+              ),
       home: MainScreen(),
     );
   }

@@ -1,29 +1,45 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app1/detailscreen.dart';
 import 'package:flutter_app1/model/tourismplace.dart';
+import 'package:flutter_app1/utils/utils.dart';
 
-class MainScreen extends StatelessWidget {
+
+var t1 = TextStyle(
+  fontSize: 16.0,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w500,
+);
+var t2 = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w300,
+);
+class Main extends StatelessWidget {
+  final List<TourismPlace> tPlace;
+  Main({@required this.tPlace});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: Text('Wisata Bandung'),
+        elevation: 0,
       ),
       body: ListView(
-        children: tourismPlaceList.map((place) {
+        children: tPlace.map((place) {
           return FlatButton(
+            textColor: Theme.of(context).accentColor,
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return DetailScreen(place: place);
-              }));
+              Navigator.push(context,CupertinoPageRoute(builder: (context){return DetailScreen(place:place);} ));
             },
             child: Card(
+              color: Theme.of(context).primaryColor,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: Image.asset(place.imageAsset),
+                    child: place.img,
                   ),
                   Expanded(
                     flex: 2,
@@ -34,12 +50,15 @@ class MainScreen extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             place.name,
-                            style: TextStyle(fontSize: 16.0),
+                            style: t1,
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          Text(place.location),
+                          Text(
+                              place.location,
+                              style: t2
+                          ),
                         ],
                       ),
                     ),
@@ -53,32 +72,49 @@ class MainScreen extends StatelessWidget {
     );
   }
 }
-// Container(
-// padding: EdgeInsets.all(16.0),
-// child: FlatButton(
-// color: Colors.blue,
-// textColor: Colors.white,
-// disabledColor: Colors.grey,
-// disabledTextColor: Colors.black,
-// padding: EdgeInsets.all(8.0),
-// splashColor: Colors.blueAccent,
-// onPressed: () {
-// Navigator.push(context, MaterialPageRoute(builder: (context) {
-// return Rainbow();
-// }));
-// },
-// child: Text(
-// 'Rainbow',
-// style: TextStyle(fontSize: 20.0),
-// ),
-// )
-// ),
+class MainScreen extends StatefulWidget{
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+class _MainScreenState extends State<MainScreen>{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
+        body: FutureBuilder(
+            initialData: false,
+            future: loadAllImage(tourismPlaceList),
+            builder: (context,col){
+              if(col.connectionState==ConnectionState.done && col.hasData) {
+                //tourismPlaceList=col.data;
+                return Main(tPlace: col.data);
+              }else if(col.hasError){
+                print(col.error);
+                return Align(
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+                  ),
+                );
+              }else{
+                return Align(
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+                  ),
+                );
+              }
+            }
+        )
+    );
+  }
+}
 var tourismPlaceList = [
   TourismPlace(
-    name: 'Farm House Lembang',
+    name: 'Jonathan Hold',
     location: 'Lembang',
     description:
-    'Berada di jalur utama Bandung-Lembang, Farm House menjadi objek wisata yang tidak pernah sepi pengunjung. Selain karena letaknya strategis, kawasan ini juga menghadirkan nuansa wisata khas Eropa. Semua itu diterapkan dalam bentuk spot swafoto Instagramable.',
+    'Actor, musician, lyricist, lover of pop music. Enjoying life alone and make every second worthy. Feeling proud of my self so keep calm and dance with me.',
     openDays: 'Open Everyday',
     openTime: '09:00 - 20:00',
     ticketPrice: 'Rp 25000',

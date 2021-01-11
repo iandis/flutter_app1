@@ -1,27 +1,136 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app1/model/tourismplace.dart';
-
-var informationTextStyle = TextStyle(
-  fontFamily: 'Oxygen',
+import 'package:flutter_app1/utils/utils.dart';
+// Font: Monserrat
+// var rubikreg = TextStyle(
+//   fontSize: 16.0,
+//   fontFamily: 'Rubik',
+// );
+// var rubik300 = TextStyle(
+//   fontSize: 16.0,
+//   fontFamily: 'Rubik',
+//   fontWeight: FontWeight.w300,
+// );
+// var rubik500 = TextStyle(
+//   fontSize: 30.0,
+//   fontFamily: 'Rubik',
+//   fontWeight: FontWeight.w500,
+// );
+// var rubik600 = TextStyle(
+//   fontSize: 30.0,
+//   fontFamily: 'Rubik',
+//   fontWeight: FontWeight.w600,
+// );
+// var rubik700 = TextStyle(
+//   fontSize: 30.0,
+//   fontFamily: 'Rubik',
+//   fontWeight: FontWeight.w700,
+// );
+// Font: Monserrat
+var montreg = TextStyle(
+  fontSize: 16.0,
+  fontFamily: 'Montserrat',
+);
+var mont200 = TextStyle(
+  fontSize: 16.0,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w200,
+);
+var mont300 = TextStyle(
+  fontSize: 16.0,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w300,
+);
+var mont500 = TextStyle(
+  fontSize: 30.0,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w500,
+);
+var mont600 = TextStyle(
+  fontSize: 30.0,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w600,
+);
+var mont700 = TextStyle(
+  fontSize: 30.0,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w700,
 );
 
-class DetailScreen extends StatelessWidget {
+// Font: Exo
+// var exoreg = TextStyle(
+//   fontSize: 16.0,
+//   fontFamily: 'Exo',
+//   /*fontWeight: FontWeight.w300,*/
+// );
+// var exo200 = TextStyle(
+//   fontSize: 16.0,
+//   fontFamily: 'Exo',
+//   fontWeight: FontWeight.w200,
+// );
+// var exo300 = TextStyle(
+//   fontSize: 16.0,
+//   fontFamily: 'Exo',
+//   fontWeight: FontWeight.w300,
+// );
+// var exo500 = TextStyle(
+//   fontSize: 16.0,
+//   fontFamily: 'Exo',
+//   fontWeight: FontWeight.w500,
+// );
+// var exo600 = TextStyle(
+//   fontSize: 30.0,
+//   fontFamily: 'Exo',
+//   fontWeight: FontWeight.w600,
+// );
+// var exo700 = TextStyle(
+//   fontSize: 30.0,
+//   fontFamily: 'Exo',
+//   fontWeight: FontWeight.w700,
+// );
+// class DetailScreen extends StatelessWidget {
+//   final TourismPlace place;
+//   DetailScreen({@required this.place});
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Theme.of(context).primaryColor,
+//       body: ScreenLoading(place:place),
+//     );
+//   }
+// }
+class DetailScreen extends StatelessWidget{
   final TourismPlace place;
-
   DetailScreen({@required this.place});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).primaryColor,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Image.asset(place.imageAsset),
+                Container(
+                  padding: EdgeInsets.only(top: 100),
+                  child:Align(
+                    alignment: Alignment.topCenter,
+                    child: CircleAvatar(
+                      radius:90,
+                      backgroundColor: place.col,
+                      child: CircleAvatar(
+                        radius: 88,
+                        backgroundColor: Theme.of(context).primaryColor,
+                        child: CircleAvatar(
+                            radius: 75,
+                            backgroundImage: AssetImage(place.imageAsset)
+                        ) ,
+                      ),
+                    ),
+                  ),
+                ),
                 SafeArea(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,10 +152,7 @@ class DetailScreen extends StatelessWidget {
               child: Text(
                 place.name,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontFamily: 'Staatliches',
-                ),
+                style: mont700,
               ),
             ),
             Container(
@@ -60,7 +166,7 @@ class DetailScreen extends StatelessWidget {
                       SizedBox(height: 8.0),
                       Text(
                         place.openDays,
-                        style: informationTextStyle,
+                        style: mont200,
                       ),
                     ],
                   ),
@@ -70,7 +176,7 @@ class DetailScreen extends StatelessWidget {
                       SizedBox(height: 8.0),
                       Text(
                         place.openTime,
-                        style: informationTextStyle,
+                        style: mont200,
                       ),
                     ],
                   ),
@@ -80,7 +186,7 @@ class DetailScreen extends StatelessWidget {
                       SizedBox(height: 8.0),
                       Text(
                         place.ticketPrice,
-                        style: informationTextStyle,
+                        style: mont200,
                       ),
                     ],
                   ),
@@ -92,10 +198,7 @@ class DetailScreen extends StatelessWidget {
               child: Text(
                 place.description,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontFamily: 'Oxygen',
-                ),
+                style: mont200,
               ),
             ),
             Container(
@@ -115,11 +218,10 @@ class DetailScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      )
     );
   }
 }
-
 
 class FavoriteButton extends StatefulWidget {
   @override
