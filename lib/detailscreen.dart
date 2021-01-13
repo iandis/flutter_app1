@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app1/model/tourismplace.dart';
-import 'package:flutter_app1/utils/utils.dart';
+import 'package:flutter_app1/model/userinfo.dart';
 // Font: Monserrat
 // var rubikreg = TextStyle(
 //   fontSize: 16.0,
@@ -102,7 +102,8 @@ var mont700 = TextStyle(
 // }
 class DetailScreen extends StatelessWidget{
   final TourismPlace place;
-  DetailScreen({@required this.place});
+  final User user;
+  DetailScreen({@required this.place,this.user});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +120,7 @@ class DetailScreen extends StatelessWidget{
                     alignment: Alignment.topCenter,
                     child: CircleAvatar(
                       radius:90,
-                      backgroundColor: place.col,
+                      backgroundColor: Colors.cyanAccent,
                       child: CircleAvatar(
                         radius: 88,
                         backgroundColor: Theme.of(context).primaryColor,
