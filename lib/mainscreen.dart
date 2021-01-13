@@ -30,7 +30,7 @@ class Main extends StatelessWidget {
           return FlatButton(
             textColor: Theme.of(context).accentColor,
             onPressed: () {
-              Navigator.push(context,CupertinoPageRoute(builder: (context){return DetailScreen(place:place);} ));
+              /*Navigator.push(context,CupertinoPageRoute(builder: (context){return DetailScreen(place:place);} ));*/
             },
             child: Card(
               color: Theme.of(context).primaryColor,
@@ -87,7 +87,7 @@ class _MainScreenState extends State<MainScreen>{
             builder: (context,col){
               if(col.connectionState==ConnectionState.done && col.hasData) {
                 //tourismPlaceList=col.data;
-                return Main(tPlace: col.data);
+                return null; /*Main(tPlace: col.data);*/
               }else if(col.hasError){
                 print(col.error);
                 return Align(
