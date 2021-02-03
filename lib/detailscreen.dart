@@ -38,7 +38,7 @@ var mont700 = TextStyle(
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w700,
 );
-
+//tes
 class DetailScreen extends StatelessWidget{
   final User user;
   DetailScreen({@required this.user});
@@ -51,24 +51,55 @@ class DetailScreen extends StatelessWidget{
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: (MediaQuery.of(context).size.width/8),
+                  padding: EdgeInsets.only(top:50),
+                  child:RaisedButton(
+                    child: Icon(Icons.edit_outlined,size: 20),
+                    color: Colors.deepOrange,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                      ),
+                    ),
+                    onPressed: (){},
+                  ),
+                ),
+                Container(
+                  width: (MediaQuery.of(context).size.width/8),
+                  padding: EdgeInsets.only(top:50),
+                  child:RaisedButton(
+                    child: Icon(Icons.add_a_photo_outlined, size: 20),
+                    color: Colors.greenAccent[400],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                      ),
+                    ),
+                    onPressed: (){},
+                  ),
+                ),
+              ],
+            ),
             Stack(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(top: 100),
-                  child:Align(
-                    alignment: Alignment.topCenter,
+                  alignment: Alignment.topCenter,
+                  child: CircleAvatar(
+                    radius:70,
+                    backgroundColor: user.gender == 0 ? Colors.cyanAccent : Colors.pink[200],
                     child: CircleAvatar(
-                      radius:90,
-                      backgroundColor: user.gender == 0 ? Colors.cyanAccent : Colors.pink[200],
+                      radius: 69,
+                      backgroundColor: Theme.of(context).primaryColor,
                       child: CircleAvatar(
-                        radius: 88,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        child: CircleAvatar(
-                            radius: 75,
-                            backgroundImage: AssetImage(avaAsset),
-                        ) ,
+                        radius: 58,
+                        backgroundImage: AssetImage(avaAsset),
                       ),
                     ),
                   ),
