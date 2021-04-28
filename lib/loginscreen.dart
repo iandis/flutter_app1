@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app1/model/userinfo.dart';
-import 'package:flutter_app1/detailscreen.dart';
 import 'dart:math' as math;
+
+import 'customs/customrouter.dart';
 
 var t1 = TextStyle(
   fontSize: 30.0,
@@ -13,23 +14,7 @@ var t1 = TextStyle(
 var treg = TextStyle(
   fontFamily: 'Montserrat',
 );
-/*class Login extends StatelessWidget{
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Login',
-      theme: ThemeData(
-              primaryColor: Color(0xff191e3b),
-              backgroundColor: Color(0xff191e3b),
-              brightness: Brightness.dark,
-              errorColor: Color(0xffB00020),
-              accentColor: Color(0xff40C4FF),
-      ),
-      home: LoginScreen(),
-    );
-  }
-}*/
 class Login extends StatefulWidget{
   @override
   LoginScreen createState()=>LoginScreen();
@@ -53,7 +38,6 @@ class LoginScreen extends State<Login>{
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body:Stack(
-        /*alignment: Alignment.center,*/
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -133,7 +117,6 @@ class LoginScreen extends State<Login>{
                     keyboardType: TextInputType.multiline,
                     maxLines: 5,
                     maxLength: 150,
-                    maxLengthEnforced: true,
                     inputFormatters: [
                       MaxLinesTextInputFormatter(5),
                     ],
@@ -150,48 +133,22 @@ class LoginScreen extends State<Login>{
                     /*onEditingComplete: () => node.nextFocus(),*/
                   ),
               ),
-              /*Container(
-                padding: EdgeInsets.only(left:10,right: 10,bottom:10),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    canvasColor: Theme.of(context).accentColor.withOpacity(0.8),
-                    buttonTheme: ButtonTheme.of(context).copyWith(
-                      alignedDropdown: true,
-                    ),
-                  ),
-                    child:DropdownButton<int>(
-                      items:<DropdownMenuItem<int>>[
-                        DropdownMenuItem<int>(
-                          value: 0,
-                          child: Text('Male'),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: 1,
-                          child: Text('Female'),
-                        ),
-                      ],
-                      value:  gender,
-                      hint: Text("Gender"),
-                      onChanged: (int value){
-                        setState(() {
-                          gender=value;
-                          user.gender=value;
-                          }
-                        );
-                      },
-                  ),
-                ),
-              ),*/
+              
               Padding(
                   padding: EdgeInsets.only(left:10,right:10),
-                  child: RaisedButton(
-                    color: Theme.of(context).accentColor,
-                    textColor: Colors.white,
+                  child: ElevatedButton(
                     child: Text("Start"),
-                    onPressed: validateString(user.name) && validateString(user.bio) && validateString(user.profession) && user.gender!=null ? (){
-                      user.flwr=0;
-                      user.flwg=0;
-                      Navigator.push(context,CupertinoPageRoute(builder: (context){return DetailScreen(user:user);} ));
+                    onPressed: 
+                      validateString(user.name) && 
+                      validateString(user.bio) && 
+                      validateString(user.profession) && 
+                      user.gender!=null ? () async {
+                      user.flwr=1000;
+                      user.flwg=20;
+                      await Navigator.of(context).pushReplacementNamed(
+                        AppRoutes.detailScreen, 
+                        arguments: user
+                      );
                     } : null,
                   )
               ),

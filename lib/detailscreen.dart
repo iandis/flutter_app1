@@ -1,21 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app1/customs/customrouter.dart';
 import 'package:flutter_app1/model/tourismplace.dart';
 import 'package:flutter_app1/model/userinfo.dart';
-import 'package:flutter_app1/mainscreen.dart';
-// Font: Monserrat
-var mont100 = TextStyle(
-  fontSize: 15.0,
-  fontFamily: 'Montserrat',
-  fontWeight: FontWeight.w100,
-);
-var mont200 = TextStyle(
-  fontSize: 15.0,
-  fontFamily: 'Montserrat',
-  fontWeight: FontWeight.w200,
-);
+import 'package:flutter_app1/tourismplacelists.dart';
 var mont300 = TextStyle(
-  fontSize: 15.0,
+  fontSize: 14.0,
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w300,
 );
@@ -23,73 +14,49 @@ var montreg = TextStyle(
   fontSize: 15.0,
   fontFamily: 'Montserrat',
 );
-var mont500 = TextStyle(
-  fontSize: 20.0,
-  fontFamily: 'Montserrat',
-  fontWeight: FontWeight.w500,
-);
-var mont600 = TextStyle(
-  fontSize: 20.0,
-  fontFamily: 'Montserrat',
-  fontWeight: FontWeight.w600,
-);
 var mont700 = TextStyle(
   fontSize: 20.0,
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w700,
 );
-//tes
+
 class DetailScreen extends StatelessWidget{
   final User user;
   DetailScreen({@required this.user});
   @override
   Widget build(BuildContext context) {
-    TourismPlace place = tourismPlaceList[0];
     String avaAsset = user.gender==0 ? 'images/avatar_m.png' : 'images/avatar_f.png' ;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.5,
+        actions: [
+          Container(
+            padding: EdgeInsets.all(10),
+            width: 75,
+            child: TextButton(
+              child: Icon(Icons.logout, size: 20, color: Colors.white),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.deepOrange,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+              ),
+              onPressed: () async {
+                await Navigator.of(context).pushReplacementNamed(AppRoutes.loginScreen);
+              },
+            ),
+          ),
+        ],
+      ),
       backgroundColor: Theme.of(context).primaryColor,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Stack(
               children: [
                 Container(
-                  width: (MediaQuery.of(context).size.width/8),
-                  padding: EdgeInsets.only(top:50),
-                  child:RaisedButton(
-                    child: Icon(Icons.edit_outlined,size: 20),
-                    color: Colors.deepOrange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                      ),
-                    ),
-                    onPressed: (){},
-                  ),
-                ),
-                Container(
-                  width: (MediaQuery.of(context).size.width/8),
-                  padding: EdgeInsets.only(top:50),
-                  child:RaisedButton(
-                    child: Icon(Icons.add_a_photo_outlined, size: 20),
-                    color: Colors.greenAccent[400],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                      ),
-                    ),
-                    onPressed: (){},
-                  ),
-                ),
-              ],
-            ),
-            Stack(
-              children: <Widget>[
-                Container(
+                  margin: EdgeInsets.only(top: 20),
                   alignment: Alignment.topCenter,
                   child: CircleAvatar(
                     radius:70,
@@ -104,20 +71,6 @@ class DetailScreen extends StatelessWidget{
                     ),
                   ),
                 ),
-                /*SafeArea(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      FavoriteButton(),
-                    ],
-                  ),
-                ),*/
               ],
             ),
             Container(
@@ -133,11 +86,9 @@ class DetailScreen extends StatelessWidget{
               child: Text(
                 user.profession,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w200,
-                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: mont300
               ),
             ),
             Container(
@@ -145,7 +96,9 @@ class DetailScreen extends StatelessWidget{
               child: Text(
                 user.bio,
                 textAlign: TextAlign.center,
-                style: mont300,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: montreg,
               ),
             ),
             Divider(
@@ -153,18 +106,25 @@ class DetailScreen extends StatelessWidget{
               thickness: 1,
               color: Colors.white12,
             ),
-            IntrinsicHeight(
-              child:Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
                 children:[
-                  Expanded(
-                    flex:1,
-                    child: Container(
-                      padding: EdgeInsets.only(top:6,bottom: 9,),
-                        child:Column(
+                  Container(
+                    width: MediaQuery.of(context).size.width / 4,
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15)
+                      ),
+                    ),
+                    child: Column(
                       children: [
                         Text(
-                          "0",
+                          TourismPlaces.lists.length.toString(),
                           textAlign: TextAlign.center,
                           style: mont700,
                         ),
@@ -174,56 +134,55 @@ class DetailScreen extends StatelessWidget{
                           style: mont300,
                         ),
                       ],
-                    )
+                    ),
                   ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15)
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          user.flwr.toString(),
+                          textAlign: TextAlign.center,
+                          style: mont700,
+                        ),
+                        Text(
+                          "Followers",
+                          textAlign: TextAlign.center,
+                          style: mont300,
+                        ),
+                      ],
+                    ),
                   ),
-                  VerticalDivider(
-                    thickness: 1,
-                    color: Colors.white12,
-                  ),
-                  Expanded(
-                      flex:1,
-                      child: Container(
-                        padding: EdgeInsets.only(top:6,bottom: 9,),
-                          child:Column(
-                        children: [
-                          Text(
-                            user.flwr.toString(),
-                            textAlign: TextAlign.center,
-                            style: mont700,
-                          ),
-                          Text(
-                            "Followers",
-                            textAlign: TextAlign.center,
-                            style: mont300,
-                          ),
-                        ],
-                      )
-                  ),
-                  ),
-                  VerticalDivider(
-                    thickness: 1,
-                    color: Colors.white12,
-                  ),
-                  Expanded(
-                      flex:1,
-                      child: Container(
-                          padding: EdgeInsets.only(top:6,bottom: 9,),
-                          child:Column(
-                        children: [
-                          Text(
-                            user.flwg.toString(),
-                            textAlign: TextAlign.center,
-                            style: mont700,
-                          ),
-                          Text(
-                            "Following",
-                            textAlign: TextAlign.center,
-                            style: mont300,
-                          ),
-                        ],
-                      )
-                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 4,
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15)
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          user.flwg.toString(),
+                          textAlign: TextAlign.center,
+                          style: mont700,
+                        ),
+                        Text(
+                          "Following",
+                          textAlign: TextAlign.center,
+                          style: mont300,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
             ),
@@ -236,62 +195,43 @@ class DetailScreen extends StatelessWidget{
             GridView.count(
               shrinkWrap: true,
               primary: false,
-              padding: EdgeInsets.only(left:20, right:20,bottom:20, top:20),
+              padding: EdgeInsets.all(20),
               scrollDirection: Axis.vertical,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               crossAxisCount: 2,
-              /*gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),*/
-              /*height: 300,
-              child:ListView(
-                scrollDirection: Axis.vertical,*/
-                children: place.imageUrls.map((url) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.white12,
-                        width: 1,
+                children: TourismPlaces.lists.map((place) {
+                  return GestureDetector(
+                    onTap: () async {
+                      await Navigator.of(context).pushNamed(
+                        AppRoutes.postDetailScreen, 
+                        arguments: [
+                            user.name,
+                            place
+                          ]
+                        );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    //padding: EdgeInsets.all(10),/*only(top:10,left:20,right: 20,bottom:10),*/
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(url),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Hero(
+                          tag: place.name,
+                          child: CachedNetworkImage(
+                            imageUrl: place.imageUrls[0],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                     ),
                   );
                 }).toList(),
               ),
-            // ),
           ],
         ),
       )
-    );
-  }
-}
-
-class FavoriteButton extends StatefulWidget {
-  @override
-  _FavoriteButtonState createState() => _FavoriteButtonState();
-}
-
-
-class _FavoriteButtonState extends State<FavoriteButton> {
-  bool isFavorite = false;
-
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: Colors.red,
-      ),
-      onPressed: () {
-        setState(() {
-          isFavorite = !isFavorite;
-        });
-      },
     );
   }
 }
