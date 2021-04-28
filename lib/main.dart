@@ -4,24 +4,6 @@ import 'package:flutter_app1/loginscreen.dart';
 
 import 'customs/customrouter.dart';
 
-var mont100 = TextStyle(
-  fontWeight: FontWeight.w100,
-);
-var mont200 = TextStyle(
-  fontWeight: FontWeight.w200,
-);
-var mont300 = TextStyle(
-  fontWeight: FontWeight.w300,
-);
-var mont500 = TextStyle(
-  fontWeight: FontWeight.w500,
-);
-var mont600 = TextStyle(
-  fontWeight: FontWeight.w600,
-);
-var mont700 = TextStyle(
-  fontWeight: FontWeight.w700,
-);
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
