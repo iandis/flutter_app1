@@ -129,8 +129,6 @@ class LoginScreen extends State<Login>{
                         user.bio=value;
                       });
                     },
-                    /*textInputAction: TextInputAction.next,*/
-                    /*onEditingComplete: () => node.nextFocus(),*/
                   ),
               ),
               
